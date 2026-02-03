@@ -13,6 +13,12 @@ namespace PlaywrightDemo.UI
     {
         public static IServiceCollection AddUIServices(this IServiceCollection services)
         {
+            #region Register Components
+
+            services.AddScoped<INavigationBar, NavigationBar>();
+
+            #endregion
+
             #region Register Flows
 
             services.AddScoped<ILoginFlow, LoginFlow>();
@@ -26,7 +32,6 @@ namespace PlaywrightDemo.UI
             services.AddScoped<ILoginPopup, MicrosoftLoginPopup>();
             services.AddScoped<ILoginPage, LoginPage>();
             services.AddScoped<IDashboardPage, DashboardPage>();
-            services.AddScoped<INavigationBar, NavigationBar>();
             services.AddScoped<IOperationalUnitsPage, OperationalUnitsPage>();
 
             #endregion

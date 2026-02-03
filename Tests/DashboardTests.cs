@@ -38,6 +38,7 @@ namespace PlaywrightDemo.Tests
             var isDashboardLoaded = await _dashboardFlow.VerifyDashboardLoadedAsync();
             Assert.True(isDashboardLoaded, "Dashboard did not load successfully.");
 
+            await Task.Delay(20000);
         }
     }
 

@@ -44,7 +44,7 @@ namespace PlaywrightDemo.Tests
             Assert.True(isOperationalUnitsPageLoaded, "Operational Units page should be loaded.");
 
             // delay for observation
-            await Task.Delay(60000);
+            await Task.Delay(20000);
         }
     }
 }

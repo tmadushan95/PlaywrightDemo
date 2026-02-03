@@ -23,6 +23,8 @@ namespace PlaywrightDemo.Tests
             // Verify that login was successful
             var isLoginSuccessful = await _loginFlow.IsLoginSuccessfulAsync();
             Assert.True(isLoginSuccessful, "Login was not successful.");
+
+          await  Task.Delay(20000);
         }
     }
 }
