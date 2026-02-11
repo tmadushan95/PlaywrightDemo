@@ -2,6 +2,9 @@
 bin/
 obj/
 out/
+allure-report/
+allure-results/
+TestResults/
 
 ## User-specific files
 *.user

@@ -2,18 +2,12 @@
 
 namespace PlaywrightDemo
 {
-    public abstract class TestBase :
+    public abstract class TestBase(PlaywrightFixture _fixture) :
         IClassFixture<PlaywrightFixture>,
         IAsyncLifetime
     {
-        private readonly PlaywrightFixture _fixture;
         protected IServiceProvider Root { get; private set; } = null!;
         protected TestScope Scope = null!;
-
-        protected TestBase(PlaywrightFixture fixture)
-        {
-            _fixture = fixture;
-        }
 
         public virtual Task InitializeAsync()
         {

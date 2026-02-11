@@ -17,7 +17,7 @@ public sealed class OperationalUnitsPage(IPage _page, INavigationBar _navigation
     /// Asynchronously determines whether the Operational Units page is currently loaded and visible.
     /// </summary>
     public async Task<bool> IsOperationalUnitsPageLoadedAsync() =>
-        await _page.Locator("text=View all leaf scopes (scopes with no children) and their parent hierarchy.").IsVisibleAsync();
+        await _page.Locator("text=View all scopes in a hierarchical tree structure. Expand or collapse nodes to navigate the hierarchy.").IsVisibleAsync();
 
     /// <summary>
     /// Displays the details of the selected Operational Unit 
