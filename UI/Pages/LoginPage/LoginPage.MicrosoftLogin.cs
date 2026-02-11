@@ -1,5 +1,5 @@
-﻿using Microsoft.Playwright;
-using System.Threading;
+﻿using Allure.Xunit.Attributes.Steps;
+using Microsoft.Playwright;
 
 namespace PlaywrightDemo.UI.Pages.LoginPage;
 
@@ -11,7 +11,10 @@ public sealed partial class LoginPage
     /// Initiates the Microsoft sign-in process by clicking the corresponding button and returns a handle to the
     /// resulting login popup.
     /// </summary>
-    public async Task<bool> MicrosoftLogin(string email, string password)
+    [AllureStep("Login with Microsoft account using email: {email}")]
+    public async Task<bool> MicrosoftLogin(
+        [Skip] string email,
+        [Skip] string password)
     {
         // Waits for the popup to open.
         var popupTask = _page.WaitForPopupAsync();
@@ -39,7 +42,10 @@ public sealed partial class LoginPage
     /// <summary>
     /// Automates the login process by opening a popup and submitting the specified email and password asynchronously.
     /// </summary>
-    private async Task OpenLoginPopupAsync(string email, string password)
+    [AllureStep("Submit Microsoft credentials")]
+    private async Task OpenLoginPopupAsync(
+        [Skip] string email,
+        [Skip] string password)
     {
         // Email
         await _popup.WaitForSelectorAsync("input[name='loginfmt']", new() { Timeout = _config.Playwright.TimeoutMs });
@@ -58,6 +64,7 @@ public sealed partial class LoginPage
     /// <summary>
     /// Handles the 'Stay signed in?' prompt by detecting and clicking the confirmation button if it appears.
     /// </summary>
+    [AllureStep("Handle 'Stay signed in?' prompt if present")]
     private async Task HandleStaySignedInAsync()
     {
         try
