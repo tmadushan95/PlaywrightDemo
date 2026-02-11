@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PlaywrightDemo.Core;
-using PlaywrightDemo.UI.Flows;
 using PlaywrightDemo.UI.Flows.Interfaces;
 
 namespace PlaywrightDemo.Tests
@@ -22,29 +21,28 @@ namespace PlaywrightDemo.Tests
         [Fact]
         public async Task OperationalUnitsTest()
         {
-            // Login to the application using Microsoft authentication
-            await _loginFlow.LoginWithMicrosoftAsync();
-
-            // Verify that login was successful
-            var isLoginSuccessful = await _loginFlow.IsLoginSuccessfulAsync();
+            // Login to the application
+            var isLoginSuccessful = await _loginFlow.LoginWithMicrosoftAsync();
             Assert.True(isLoginSuccessful, "Login should be successful.");
 
-            // Open the dashboard page when login is successful if not Uncomment this line
-            // await _dashboardFlow.OpenDashboardAsync();
-
             // Verify that the dashboard page is loaded
-            var isDashboardLoaded = await _dashboardFlow.VerifyDashboardLoadedAsync();
+            var isDashboardLoaded = await _dashboardFlow.OpenDashboardPageAsync();
             Assert.True(isDashboardLoaded, "Dashboard did not load successfully.");
 
             // Navigate to the Operational Units page
-            await _operationalUnitsFlow.OpenOperationalUnitsPageAsync();
-
-            // Verify that the Operational Units page is loaded
-            var isOperationalUnitsPageLoaded = await _operationalUnitsFlow.IsOperationalUnitsPageLoadedAsync();
+            // Assert that the Operational Units page is loaded successfully
+            var isOperationalUnitsPageLoaded = await _operationalUnitsFlow.OpenOperationalUnitsPageAsync();
             Assert.True(isOperationalUnitsPageLoaded, "Operational Units page should be loaded.");
 
             // delay for observation
-            await Task.Delay(20000);
+            await Task.Delay(5000);
+
+            // View details of a specific operational unit (e.g., "Formosa")
+            var isViewOperationalUnit = await _operationalUnitsFlow.ViewOperationalUnitAsync("Formosa");
+            Assert.True(isViewOperationalUnit, "Operational Unit details should be displayed.");
+
+            await Task.Delay(5000);
+
         }
     }
 }

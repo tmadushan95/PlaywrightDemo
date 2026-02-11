@@ -1,15 +1,45 @@
-using Microsoft.Playwright;
-using PlaywrightDemo.Infrastructure.Config;
-using PlaywrightDemo.UI.Pages.Interfaces;
+﻿using Microsoft.Playwright;
+using System.Threading;
 
-namespace PlaywrightDemo.Pages;
+namespace PlaywrightDemo.UI.Pages.LoginPage;
 
-public sealed class MicrosoftLoginPopup(IPage _popup,TestConfig _config) : ILoginPopup
+public sealed partial class LoginPage
 {
+    private IPage _popup;
+
+    /// <summary>
+    /// Initiates the Microsoft sign-in process by clicking the corresponding button and returns a handle to the
+    /// resulting login popup.
+    /// </summary>
+    public async Task<bool> MicrosoftLogin(string email, string password)
+    {
+        // Waits for the popup to open.
+        var popupTask = _page.WaitForPopupAsync();
+
+        // Clicks the "Sign in with Microsoft" button to trigger the popup.
+        await _page.ClickAsync("text=Sign in with Microsoft");
+
+        // Waits for the popup to be available and assigns it to the _popup variable.
+        _popup = await popupTask;
+
+        // Returns a new instance of MicrosoftLoginPopup
+        await OpenLoginPopupAsync(email, password);
+
+        // Wait until the welcome message appears on the main page
+        var welcomeLocator = _page.Locator("text=Welcome back,");
+        await welcomeLocator.WaitForAsync(new LocatorWaitForOptions
+        {
+            Timeout = _config.Playwright.TimeoutMs,
+        });
+
+        // Return true if the welcome message is visible
+        return await welcomeLocator.IsVisibleAsync();
+    }
+
     /// <summary>
     /// Automates the login process by opening a popup and submitting the specified email and password asynchronously.
     /// </summary>
-    public async Task OpenLoginPopupAsync(string email, string password)
+    private async Task OpenLoginPopupAsync(string email, string password)
     {
         // Email
         await _popup.WaitForSelectorAsync("input[name='loginfmt']", new() { Timeout = _config.Playwright.TimeoutMs });

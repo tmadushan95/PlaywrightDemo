@@ -8,13 +8,10 @@ namespace PlaywrightDemo.UI.Flows
         /// <summary>
         /// Navigates asynchronously to the Operational Units page.
         /// </summary>
-        public async Task OpenOperationalUnitsPageAsync() =>
-          await _operationalUnitsPage.OpenOperationalUnitsAsync();
+        public async Task<bool> OpenOperationalUnitsPageAsync() =>
+          await _operationalUnitsPage.OpenAsync();
 
-        /// <summary>
-        /// Asynchronously determines whether the Operational Units page has finished loading.
-        /// </summary>
-        public async Task<bool> IsOperationalUnitsPageLoadedAsync() =>
-            await _operationalUnitsPage.IsOperationalUnitsPageLoadedAsync();
+        public async Task<bool> ViewOperationalUnitAsync(string name) =>
+            await _operationalUnitsPage.ViewOperationalUnitAsync(name);
     }
 }

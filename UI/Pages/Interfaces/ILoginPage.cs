@@ -3,12 +3,9 @@
     public interface ILoginPage
     {
         // Navigates to the login page
-        Task GotoLoginPageAsync();
+        Task OpenAsync();
 
         // Clicks on the login popup and returns the ILoginPopup interface
-        Task<ILoginPopup> ClickLoginPopupAsync();
-
-        // Checks if the login was successful
-        Task<bool> IsLoggingSuccessAsync();
+        Task<bool> MicrosoftLogin(string email, string password);
     }
 }

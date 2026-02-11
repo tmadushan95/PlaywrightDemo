@@ -4,33 +4,20 @@ using PlaywrightDemo.UI.Pages.Interfaces;
 
 namespace PlaywrightDemo.UI.Flows
 {
-    public sealed class LoginFlow(ILoginPage _login, IDashboardPage _dashboardPage, TestConfig _config) : ILoginFlow
+    public sealed class LoginFlow(ILoginPage _loginPage, TestConfig _config) : ILoginFlow
     {
         /// <summary>
         /// Performs an asynchronous login to the application using Microsoft account credentials.
         /// </summary>
-        public async Task LoginWithMicrosoftAsync()
+        public async Task<bool> LoginWithMicrosoftAsync()
         {
             // Navigate to login page
-            await _login.GotoLoginPageAsync();
+            await _loginPage.OpenAsync();
 
             // Click Microsoft login button
-            var loginPopup = await _login.ClickLoginPopupAsync();
-
-            // Perform Microsoft login
-            await loginPopup.OpenLoginPopupAsync(
-                email: _config.Admin.Email,
-                password: _config.Admin.Password
-            );
-
-            // Wait for dashboard page to load
-            await _dashboardPage.OpenDashboardPageAsync();
+            // The MicrosoftLogin method will handle the entire login process, including filling in the email and password,
+            // and will return true if the login was successful (i.e., if the welcome message is visible).
+            return await _loginPage.MicrosoftLogin(_config.Admin.Email, _config.Admin.Password);
         }
-
-        /// <summary>
-        /// Asynchronously determines whether the most recent login attempt was successful.
-        /// </summary>
-        public async Task<bool> IsLoginSuccessfulAsync() =>
-            await _login.IsLoggingSuccessAsync();
     }
 }

@@ -2,7 +2,6 @@
 {
     public interface ILoginFlow
     {
-        Task LoginWithMicrosoftAsync();
-        Task<bool> IsLoginSuccessfulAsync();
+        Task<bool> LoginWithMicrosoftAsync();
     }
 }

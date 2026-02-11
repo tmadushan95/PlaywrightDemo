@@ -8,19 +8,11 @@ namespace PlaywrightDemo.UI.Flows
         /// <summary>
         /// Asynchronously opens the dashboard page.
         /// </summary>
-        public async Task OpenDashboardAsync()
+        public async Task<bool> OpenDashboardPageAsync()
         {
-            // Use the dashboard page to open the dashboard
-            await _dashboardPage.OpenDashboardPageAsync();
-        }
-
-        /// <summary>
-        /// Asynchronously verifies whether the dashboard page has finished loading.
-        /// </summary>
-        public async Task<bool> VerifyDashboardLoadedAsync()
-        {
-            // Use the dashboard page to check if it is loaded
-            return await _dashboardPage.IsDashboardPageLoadedAsync();
+            // This method will return true if the dashboard page is successfully opened
+            // and the expected element is visible, otherwise it will return false.
+            return await _dashboardPage.OpenAsync();
         }
     }
 }

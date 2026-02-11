@@ -3,9 +3,9 @@
     public interface IOperationalUnitsFlow
     {
         // Navigates to the Operational Units page
-        Task OpenOperationalUnitsPageAsync();
+        Task<bool> OpenOperationalUnitsPageAsync();
 
-        // Checks if the Operational Units page is loaded
-        Task<bool> IsOperationalUnitsPageLoadedAsync();
+        // Displays the details of the selected Operational Unit
+        Task<bool> ViewOperationalUnitAsync(string name);
     }
 }
